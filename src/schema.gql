@@ -1,0 +1,45 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateUserRequest {
+  avatar: String!
+  country: String!
+  email: String!
+  nickname: String!
+  phone: String!
+  postalCode: String!
+  street: String!
+}
+
+input FindUsersRequest {
+  nickname: String!
+}
+
+type IdResponse {
+  """ex. 2cdc8ab1-6d50-49cc-ba14-54e4ac7ec231"""
+  id: String!
+}
+
+type Mutation {
+  userCreate(input: CreateUserRequest!): IdResponse!
+}
+
+type Query {
+  usersFind(input: FindUsersRequest!): UserResponse
+}
+
+type UserResponse {
+  avatar: String!
+  country: String!
+  createdAt: String!
+  email: String!
+
+  """ex. 2cdc8ab1-6d50-49cc-ba14-54e4ac7ec231"""
+  id: String!
+  nickname: String!
+  phone: String!
+  postalCode: String!
+  street: String!
+  updatedAt: String!
+}
