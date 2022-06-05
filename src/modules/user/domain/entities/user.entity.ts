@@ -1,5 +1,6 @@
 import { AggregateRoot } from '@libs/ddd/domain/base-classes/aggregate-root.base';
 import { UUID } from '@libs/ddd/domain/value-objects/uuid.value-object';
+import { UserHasEmptyFieldsError } from '@modules/user/errors/user.errors';
 
 import { UserCreatedDomainEvent } from '../events/user-created.domain-event';
 import { AddressVO, EmailVO, NicknameVO, PhoneVO, UrlVO } from '../value-objects';
@@ -58,7 +59,18 @@ export class UserEntity extends AggregateRoot<UserProps> {
   }
 
   validate(): void {
-    // TODO: example
-    // entity business rules validation to protect it's invariant
+    const {
+      phone,
+      email,
+      nickname,
+      avatar,
+      address: { street, country, postalCode },
+    } = this.props;
+
+    const fields = [phone, email, nickname, avatar, street, country, postalCode];
+
+    if (fields.some((f) => f == null)) {
+      throw new UserHasEmptyFieldsError('User must to complete all required fields');
+    }
   }
 }
